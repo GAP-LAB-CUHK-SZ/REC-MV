@@ -13,7 +13,7 @@ we will release the code soon.
 
 ## A Gentle Introduction
 
-
+![](/figs/teaser.png)
 
 Reconstructing dynamic 3D garment surfaces with open boundaries from monocular videos is an important problem as it provides a practical and low-cost solution for clothes digitization. Recent neural rendering methods achieve high-quality dynamic clothed human reconstruction results from monocular video, but these methods cannot separate the garment surface from the body. To address the above limitations, in this paper, we formulate this task as an optimization problem of 3D garment feature curves and surface reconstruction from monocular video. We introduce a novel approach, called REC-MV, to jointly optimize the explicit feature curves and the implicit signed distance field (SDF) of the garments. Then the open garment meshes can be extracted via garment template registration in the canonical space. 
 
@@ -22,7 +22,7 @@ Reconstructing dynamic 3D garment surfaces with open boundaries from monocular v
 If you use REC-MV in your research, please consider the following BibTeX entry and giving us a star🌟!
 
 ```BibTeX
-@inproceedings{pan2023snnet
+@inproceedings{qiu2023recmv
   title={REC-MV: REconstructing 3D Dynamic Cloth from Monucular Videos},
   author={Qiu, Lingteng and Chen, Guanying and Zhou, Jiapeng and Xu, Mutian and Wang, Junle, and Han, Xiaoguang},
   booktitle={CVPR},
