@@ -14,7 +14,7 @@ we will release the code soon.
 Python 3
 Pytorch3d (0.4.0, some compatibility issues may occur in higher versions of pytorch3d)
 
-Note: A GTX 3090 is recommended to run SelfRecon, make sure enough GPU memory if using other cards.
+Note: A GTX 3090 is recommended to run REC-MV, make sure enough GPU memory if using other cards.
 
 ## Install
 ```bash
