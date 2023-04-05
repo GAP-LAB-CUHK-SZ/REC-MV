@@ -66,18 +66,18 @@ We utilize a awesome [RobustVideoMatting](https://github.com/PeterL1n/RobustVide
 
 #### Parsing Garment Semantic label.
 
-[Self-Correction-Human-Parsing](https://github.com/GoGoDuck912/Self-Correction-Human-Parsing) is employed to segment garment labels. Note that we find **ATR** pretrained weights is better than other checkpoints, so we suggest you to load **ATR** checkpoint.
+[Self-Correction-Human-Parsing](https://github.com/GoGoDuck912/Self-Correction-Human-Parsing) is employed to segment garment labels. Note that we find **ATR** pretrained weight is better than other checkpoints, so we suggest you to load the **ATR** checkpoint.
 
 #### Initialized Voxel Skinning Weights.
 
 To better model skirts or dresses skinning weights, we apply [fite](https://github.com/jsnln/fite) to diffuse skinning weights in whole voxel space. Specifically, we initialized skinning weights as the step1 said([Link](https://github.com/jsnln/fite))
 
+The following commands given you an example to obtain PeopleSnapshot diffused skinning weights.
+
 ```bash
 #!/bin/bash
-#! example of process people snapshot
-#name_list=( female-3-casual female-3-sport female-4-casual female-6-plaza female-7-plaza )
-# name_list=( -3-casual )
-# name_list=( male-1-casual male-1-sport male-2-outdoor male-4-casual male-5-outdoor male-9-plaza )
+#! example for processing people snapshot
+# name_list=( female-3-casual female-3-sport female-4-casual female-6-plaza female-7-plaza )
 name_list=( male-2-casual )
 for name in ${name_list[@]}; do
     python -m step1_diffused_skinning.compute_diffused_skinning --config configs/step1/${name}.yaml
@@ -90,12 +90,19 @@ rm -rf ./data_tmp_skinning_grid/*
 
 #### Preprocess Datasets from Ours.
 
-We provide links to the data we have already processed
+We provide links to the datas we have already processed
 
-- [PeopleSnapshot]()
-- [CUHKszCap]()
+##### OneDrive
 
+- [PeopleSnapshot](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/EYS0ivryIX1MnZtBbs8u_ccBHFFUjZQQpsO9WMWy665R1A?e=LWbXTD)
+- [CUHKszCap-A](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/EaDhqIkcY5lEhIi5U9f-yqEB_MGv78TWtFycWxc_uSPL6g?e=6NQntH)
+- [CUHKszCap-L](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/EaVVeJlkwmVPlRLAgb3-_KQBQviHrTAp9txR-HBgynxZIQ?e=48v5eQ)
 
+##### Baidu Drive
+
+- [PeopleSnapshot](https://pan.baidu.com/s/1QqBPWok-RDmQ_ZbJpqnJMQ?pwd=whdm)(PWD: wdhm)
+- [CUHKszCap-A](https://pan.baidu.com/s/1XX0bZyPG2Hci-ynA31mcKw?pwd=grx5) (PWD: grx5)
+- [CUHKszCap-L](https://pan.baidu.com/s/1V3u9QN6X45Q5SAVIhRI5TQ?pwd=9pne)(PWD: 9pne)
 
 ## A Gentle Introduction
 
@@ -121,9 +128,9 @@ If you use REC-MV in your research, please consider the following BibTeX entry a
 
 Here are some great resources we benefit or utilize from:
 
-- [SelfRecon](https://github.com/jby1993/SelfReconCode) for Our code base.
+- [SelfRecon](https://github.com/jby1993/SelfReconCode) and [Open-PIFuhd](https://github.com/lingtengqiu/Open-PIFuhd) for Our code base.
 
-- [VideoAvatar](https://graphics.tu-bs.de/people-snapshot) and [TCMR ](https://github.com/hongsukchoi/TCMR_RELEASE) for SMPL initialization and texture extraction
+- [VideoAvatar](https://graphics.tu-bs.de/people-snapshot) and [TCMR ](https://github.com/hongsukchoi/TCMR_RELEASE) for SMPL initialization.
 - [SMPL](https://smpl.is.tue.mpg.de/) for Parametric Body Representation
 - [Self-Correction-Human-Parsing](https://github.com/GoGoDuck912/Self-Correction-Human-Parsing) for Garment Parsing
 - [RobustVideoMatting](https://github.com/PeterL1n/RobustVideoMatting) for Foreground Parsing
