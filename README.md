@@ -41,9 +41,9 @@ cd pytorch3d-0.4.0 && python setup.py install && cd ..
 
 To download the [SMPL](https://smpl.is.tue.mpg.de/) models from [here](https://mailustceducn-my.sharepoint.com/:f:/g/personal/jby1993_mail_ustc_edu_cn/EqosuuD2slZCuZeVI2h4RiABguiaB4HkUBusnn_0qEhWjQ?e=c6r4KS) and move pkls to smpl_pytorch/model.
 
+To download DeepFashion3D templates with feature curve labels from [here](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/EV_AEn_SO0FBuMQUClRCR3IB0FMiOQQgHaCb-cKpUgKjow?e=bnyFyi) and  move this folder to ../smpl_clothes_template
 
 
-## 
 
 ## A Gentle Introduction
 
@@ -120,13 +120,13 @@ We provide links to the datas we have already processed
 The dataset folder is like the following example:
 
 ```bash
-anran_tic/
-├── anran_tic_diffused -> /data4/lingtengqiu/REC-MV/CUHKszCAP/anran_tic_diffused/
-├── anran_tic_large_pose -> /data4/lingtengqiu/REC-MV/CUHKszCAP/anran_tic_large_pose/
-├── anran_tic_tcmr_output.pkl
+xxx_tic/
+├── xxx_tic_diffused -> /data4/lingtengqiu/REC-MV/CUHKszCAP/xxx_tic_diffused/
+├── xxx_tic_large_pose -> /data4/lingtengqiu/REC-MV/CUHKszCAP/xxx_tic_large_pose/
+├── xxx_tic_tcmr_output.pkl
 ├── camera.npz
 ├── diffused_skinning_weights.npy
-├── featurelines -> ../featurelines/anran_tic
+├── featurelines -> ../featurelines/xxx_tic
 ├── imgs
 │   ├── 000000.jpg
 │   ├── 000000_rect.txt
