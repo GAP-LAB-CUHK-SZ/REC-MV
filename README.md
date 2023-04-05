@@ -12,7 +12,7 @@ we will release the code soon.
 ## TODO:triangular_flag_on_post:
 
 - [x] Preprocess datasets
-- [ ] Pretrained weights
+- [x] Pretrained weights
 - [ ] Demo
 - [ ] Training Code
 
@@ -43,11 +43,23 @@ To download the [SMPL](https://smpl.is.tue.mpg.de/) models from [here](https://m
 
 
 
+## 
+
+## A Gentle Introduction
+
+![](./figs/teaser.png)
+
+Reconstructing dynamic 3D garment surfaces with open boundaries from monocular videos is an important problem as it provides a practical and low-cost solution for clothes digitization. Recent neural rendering methods achieve high-quality dynamic clothed human reconstruction results from monocular video, but these methods cannot separate the garment surface from the body. To address the above limitations, in this paper, we formulate this task as an optimization problem of 3D garment feature curves and surface reconstruction from monocular video. We introduce a novel approach, called REC-MV, to jointly optimize the explicit feature curves and the implicit signed distance field (SDF) of the garments. Then the open garment meshes can be extracted via garment template registration in the canonical space. 
+
+
+
 ## Preprocess Datasets
+
 <details>
 <summary> Click to expand </summary>
-  
+
 #### SMPL Prediction
+
 The preprocessing of  dataset is described here. If you want to optimize your own data, you can run [VideoAvatar](https://graphics.tu-bs.de/people-snapshot) or [TCMR ](https://github.com/hongsukchoi/TCMR_RELEASE)to get the initial SMPL estimation. Surely,  you can use your own SMPL initialization and normal prediction method then use REC-MV to reconstruct.
 
 #### Normal map Prediction
@@ -61,7 +73,7 @@ cd $ROOT1
 python generate_normals.py --imgpath $ROOT/video-category/imgs
 ```
 
-#### Parsing foreground  Mask
+#### Parsing Foreground  Mask
 
 We utilize a awesome [RobustVideoMatting](https://github.com/PeterL1n/RobustVideoMatting) to parsing human mask from monocular Videos.
 
@@ -71,9 +83,9 @@ We utilize a awesome [RobustVideoMatting](https://github.com/PeterL1n/RobustVide
 
 #### Initialized Voxel Skinning Weights.
 
-To better model skirts or dresses skinning weights, we apply [fite](https://github.com/jsnln/fite) to diffuse skinning weights in whole voxel space. Specifically, we initialized skinning weights as the step1 said([Link](https://github.com/jsnln/fite))
+To better model skirts or dresses skinning weights, we apply [fite](https://github.com/jsnln/fite) to diffuse skinning weights into the whole voxel space. Specifically, we initialized skinning weights as the step1 said([Link](https://github.com/jsnln/fite))
 
-The following commands given you an example to obtain PeopleSnapshot diffused skinning weights.
+The following commands give you an example to obtain PeopleSnapshot diffused skinning weights.
 
 ```bash
 #!/bin/bash
@@ -101,17 +113,34 @@ We provide links to the datas we have already processed
 
 ##### Baidu Drive
 
-- [PeopleSnapshot](https://pan.baidu.com/s/1QqBPWok-RDmQ_ZbJpqnJMQ?pwd=whdm)(PWD: wdhm)
-- [CUHKszCap-A](https://pan.baidu.com/s/1XX0bZyPG2Hci-ynA31mcKw?pwd=grx5) (PWD: grx5)
-- [CUHKszCap-L](https://pan.baidu.com/s/1V3u9QN6X45Q5SAVIhRI5TQ?pwd=9pne)(PWD: 9pne)
+- [PeopleSnapshot](https://pan.baidu.com/s/1QqBPWok-RDmQ_ZbJpqnJMQ?pwd=whdm)
+- [CUHKszCap-A](https://pan.baidu.com/s/1XX0bZyPG2Hci-ynA31mcKw?pwd=grx5) 
+- [CUHKszCap-L](https://pan.baidu.com/s/1gwMfqLyrRxdk8ru02gG9nQ?pwd=e0as)
 
 </details>
 
-## A Gentle Introduction
+## Demo
 
-![](./figs/teaser.png)
+Download the pretrained weights for self-rotated ([Onedrive](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/ERljbd3r5VhMiA8aMXmVexsBgfoAEedwtHaBNVHZuDS-eA?e=QKatmf)/[Baidu Drive](https://pan.baidu.com/s/1zZU59VXmEBWiVkl55SYisA?pwd=8rhv)) )  and large motion([Onedrive](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/EZep5m5fYvNHqPRxWtwmwEYBd6qxZDstHp8y-b8ZQTwJrQ?e=dsbmyl)/[Baidu Drive](https://pan.baidu.com/s/1psux5iY6vhz6kVtvz6exmQ?pwd=wh0o)) into CUHKszCap-L/anran_tic (Note that you need download CUHKszCap-L first).
 
-Reconstructing dynamic 3D garment surfaces with open boundaries from monocular videos is an important problem as it provides a practical and low-cost solution for clothes digitization. Recent neural rendering methods achieve high-quality dynamic clothed human reconstruction results from monocular video, but these methods cannot separate the garment surface from the body. To address the above limitations, in this paper, we formulate this task as an optimization problem of 3D garment feature curves and surface reconstruction from monocular video. We introduce a novel approach, called REC-MV, to jointly optimize the explicit feature curves and the implicit signed distance field (SDF) of the garments. Then the open garment meshes can be extracted via garment template registration in the canonical space. 
+Run the following code to generate  garment meshes from monocular videos.
+
+```bash
+# self-rotated garment capturing
+
+# large-motion garment capturing
+
+```
+
+## Training
+
+
+
+## Inference
+
+
+
+
 
 
 ## Citation
