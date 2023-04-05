@@ -44,9 +44,10 @@ To download the [SMPL](https://smpl.is.tue.mpg.de/) models from [here](https://m
 
 
 ## Preprocess Datasets
-
+<details>
+<summary> Click to expand </summary>
+  
 #### SMPL Prediction
-
 The preprocessing of  dataset is described here. If you want to optimize your own data, you can run [VideoAvatar](https://graphics.tu-bs.de/people-snapshot) or [TCMR ](https://github.com/hongsukchoi/TCMR_RELEASE)to get the initial SMPL estimation. Surely,  you can use your own SMPL initialization and normal prediction method then use REC-MV to reconstruct.
 
 #### Normal map Prediction
@@ -103,6 +104,8 @@ We provide links to the datas we have already processed
 - [PeopleSnapshot](https://pan.baidu.com/s/1QqBPWok-RDmQ_ZbJpqnJMQ?pwd=whdm)(PWD: wdhm)
 - [CUHKszCap-A](https://pan.baidu.com/s/1XX0bZyPG2Hci-ynA31mcKw?pwd=grx5) (PWD: grx5)
 - [CUHKszCap-L](https://pan.baidu.com/s/1V3u9QN6X45Q5SAVIhRI5TQ?pwd=9pne)(PWD: 9pne)
+
+</details>
 
 ## A Gentle Introduction
 
