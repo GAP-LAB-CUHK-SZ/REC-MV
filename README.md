@@ -117,11 +117,94 @@ We provide links to the datas we have already processed
 - [CUHKszCap-A](https://pan.baidu.com/s/1XX0bZyPG2Hci-ynA31mcKw?pwd=grx5) 
 - [CUHKszCap-L](https://pan.baidu.com/s/1gwMfqLyrRxdk8ru02gG9nQ?pwd=e0as)
 
+The dataset folder is like the following example:
+
+```bash
+anran_tic/
+├── anran_tic_diffused -> /data4/lingtengqiu/REC-MV/CUHKszCAP/anran_tic_diffused/
+├── anran_tic_large_pose -> /data4/lingtengqiu/REC-MV/CUHKszCAP/anran_tic_large_pose/
+├── anran_tic_tcmr_output.pkl
+├── camera.npz
+├── diffused_skinning_weights.npy
+├── featurelines -> ../featurelines/anran_tic
+├── imgs
+│   ├── 000000.jpg
+│   ├── 000000_rect.txt
+│   ├── 000001.jpg
+│   ├── 000001_rect.txt
+├── mask2fl
+│   ├── 000000.json
+│   ├── 000015.json
+├── masks
+│   ├── 000000.png
+│   ├── 000001.png
+├── normals
+│   ├── 000000.png
+│   ├── 000001.png
+├── parsing_SCH_ATR
+│   ├── 000000.npy
+│   ├── 000000.png
+│   ├── mask_parsing_000000.npy
+├── result
+│   ├── config.conf
+│   └── debug
+└── smpl_rec.npz
+```
+
+#### Preprocess your Dataset
+
+The following commands give you a guidance to process your videos.
+
+```bash
+# An example to guide you to process your videos. Assuming you video data putted into folder, namely female_large_pose.
+# and processed data folder denoted as female_large_pose_process_new.
+
+
+# 1.data prepare
+# e.g. openpose detection
+bash ./scripts/openpose_predict.sh ./female_large_pose/${video-name}/ ./female_large_pose/${video-name}/joints2d
+# parsing human mask
+# parsing a human mask by RobustVideoMatting
+# >>>>> https://github.com/PeterL1n/RobustVideoMatting
+#e.g.
+bash ./scripts/matting_video.sh 2 ./female_large_pose/${video-name}/imgs/ ./female_large_pose/${video-name}/body_masks ./female_large_pose/${video-name}/masks
+# e.g. resize images to  [1080, 1080]
+
+bash ./scripts/resize_video_imgs.sh ${video-name}
+# video-avatar predict smpl results
+# path: ~/cvpr2023/REC-MV/lib/videoavatars
+# e.g.
+bash ./scripts/build_large_pose.sh ${video-name}
+
+# process videoavatar data to current datasets
+python tools/people_aposefemale_process.py --root ~/cvpr2023/REC-MV/lib/videoavatars/datasets/${video-name}/ --save_root ./female_large_pose_process_new/${video-name}/
+
+# prdice bbox
+cd lib/lightweight-human-pose-estimation.pytorch/
+python generate_boxs.py --data ./female_large_pose_process_new/${video-name}/imgs/
+# predict normal map from pifuhd
+cd -
+cd lib/pifuhd/
+python ./generate_normals.py --imgpath ./female_large_pose_process_new/${video-name}/imgs/
+# predict TCMR, joints to optimize beta at the begining
+bash ./scripts/get_smpl_from_video.sh ./$raw_video.mp4$ ${gpu_id}
+
+#2. parsing garment mask
+# detect or label 2d curve points from the key frames.
+# e.g.
+bash ./scripts/parsing_mask.sh 0 ./configs/female_large_pose_process_new/${video-name}.conf ./female_large_pose_process_new/${video-name}/
+# parsing fl from two key points
+python ./tools/parsing_mask_to_fl.py --parsing_type ATR  --input_path ./female_large_pose_process_new/${video-name}/ --output_path ./female_large_pose_process_new/${video-name}/mask2fl
+
+#3. training
+bash ./scripts/female_large_pose_process_new/${video-name}.sh ${gpu_id} ${save_folder} ${wandb_logger_name}
+```
+
 </details>
 
 ## Demo
 
-Download the pretrained weights for self-rotated ([Onedrive](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/ERljbd3r5VhMiA8aMXmVexsBgfoAEedwtHaBNVHZuDS-eA?e=QKatmf)/[Baidu Drive](https://pan.baidu.com/s/1zZU59VXmEBWiVkl55SYisA?pwd=8rhv)) )  and large motion([Onedrive](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/EZep5m5fYvNHqPRxWtwmwEYBd6qxZDstHp8y-b8ZQTwJrQ?e=dsbmyl)/[Baidu Drive](https://pan.baidu.com/s/1psux5iY6vhz6kVtvz6exmQ?pwd=wh0o)) into CUHKszCap-L/anran_tic (Note that you need download CUHKszCap-L first).
+Download the pretrained weights for self-rotated ([Onedrive](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/ERljbd3r5VhMiA8aMXmVexsBgfoAEedwtHaBNVHZuDS-eA?e=QKatmf)/[Baidu Drive](https://pan.baidu.com/s/1zZU59VXmEBWiVkl55SYisA?pwd=8rhv))  and large motion([Onedrive](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/EZep5m5fYvNHqPRxWtwmwEYBd6qxZDstHp8y-b8ZQTwJrQ?e=dsbmyl)/[Baidu Drive](https://pan.baidu.com/s/1psux5iY6vhz6kVtvz6exmQ?pwd=wh0o)) into CUHKszCap-L/anran_tic (Note that you need download CUHKszCap-L first).
 
 Run the following code to generate  garment meshes from monocular videos.
 
@@ -134,13 +217,11 @@ Run the following code to generate  garment meshes from monocular videos.
 
 ## Training
 
-
+Coming Soon
 
 ## Inference
 
-
-
-
+Coming Soon
 
 
 ## Citation
