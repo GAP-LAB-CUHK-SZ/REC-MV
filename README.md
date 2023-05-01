@@ -9,6 +9,8 @@ This is the official PyTorch implementation of [REC-MV](https://lingtengqiu.gith
 
 we will release the code soon.
 
+**As patent pending, if you are interesting in our works, please do not hesitate to contact me to obtain paper/source codes.**
+
 ## TODO:triangular_flag_on_post:
 
 - [x] Preprocess datasets
