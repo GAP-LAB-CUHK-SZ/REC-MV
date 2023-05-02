@@ -15,13 +15,17 @@ we will release the code soon.
 
 - [x] Preprocess datasets
 - [x] Pretrained weights
-- [ ] Demo
-- [ ] Training Code
+- [x] Demo
+- [x] Training Code
 
 ## Requirements
 
 Python 3
 Pytorch3d (0.4.0, some compatibility issues may occur in higher versions of pytorch3d)
+
+PyTorch<=1.10.2
+
+[pytorch-scatter==2.0.9](https://github.com/rusty1s/pytorch_scatter)
 
 Note: A GTX 3090 is recommended to run REC-MV, make sure enough GPU memory if using other cards.
 
@@ -208,22 +212,154 @@ bash ./scripts/female_large_pose_process_new/${video-name}.sh ${gpu_id} ${save_f
 
 Download the pretrained weights for self-rotated ([Onedrive](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/ERljbd3r5VhMiA8aMXmVexsBgfoAEedwtHaBNVHZuDS-eA?e=QKatmf)/[Baidu Drive](https://pan.baidu.com/s/1zZU59VXmEBWiVkl55SYisA?pwd=8rhv))  and large motion([Onedrive](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/EZep5m5fYvNHqPRxWtwmwEYBd6qxZDstHp8y-b8ZQTwJrQ?e=dsbmyl)/[Baidu Drive](https://pan.baidu.com/s/1psux5iY6vhz6kVtvz6exmQ?pwd=wh0o)) into CUHKszCap-L/anran_tic (Note that you need download CUHKszCap-L first).
 
+
+
+Download CUHKszCap-L, its checkpoints soft link to working space, like:
+
+```bash
+
+├── anran_tic_large_pose (large_pose checkpoint)
+├── anran_tic_self_rotated (self-rotated checkpoint)
+├── featurelines -> ../featurelines/anran_tic
+├── imgs
+├── mask2fl
+├── masks
+├── normals
+├── parsing_SCH_ATR
+└── result
+    └── debug
+
+```
+
+
+
 Run the following code to generate  garment meshes from monocular videos.
 
 ```bash
-# self-rotated garment capturing
+# Download CUHKszCap-L, its checkpoints soft link to working space
+ln -s ../xxx gap-female-largepose 
+# 1.self-rotated garment capturing
+# bash ./scripts/large_pose/test_large_pose_A_fl.sh ${gpu_id} ${subject_name} ${checkpoint name} 
+bash ./scripts/large_pose/test_large_pose_A_fl.sh 2 anran_tic anran_tic_self_rotated
+# 2.large-motion garment capturing
+# ${gpu_id} ${subject_name} ${checkpoint name} 
 
-# large-motion garment capturing
+# generating video
+# define pngs to video function
+encodepngffmpeg()
+{
+	# $1: target folder
+	# $2: save video name
+    rm -rf ${2}
+    ffmpeg -r ${1} -pattern_type glob -i '*.png' -vcodec libx264 -crf 18 -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" -pix_fmt yuv420p ${2}
+}
+
+# 3.command
+
+
+
+
 
 ```
 
 ## Training
 
-Coming Soon
+For training phase.
 
-## Inference
+The  work direction likes the following folder tree:
 
-Coming Soon
+```bash
+├── a_pose_female_process -> ../../a_pose_female_process/
+├── configs
+│   ├── female_large_pose
+│   ├── gap-female
+│   ├── people_snapshot
+│   └── sythe
+├── dataset
+│   └── __pycache__
+├── debug
+│   ├── register
+│   └── smpl_beta
+│       └── imgs
+├── engineer
+│   ├── core
+│   │   └── __pycache__
+│   ├── networks
+│   │   └── __pycache__
+│   ├── optimizer
+│   │   └── __pycache__
+│   ├── registry
+│   ├── utils
+│   │   └── __pycache__
+│   └── visualizer
+│       └── __pycache__
+├── FastMinv
+│   ├── build
+│   │   ├── bdist.linux-x86_64
+│   │   ├── lib.linux-x86_64-3.8
+│   │   └── temp.linux-x86_64-3.8
+│   ├── dist
+│   └── FastMinv.egg-info
+├── logs -> ../logs/
+├── MCAcc
+│   ├── cuda
+│   │   ├── build
+│   │   │   ├── bdist.linux-x86_64
+│   │   │   ├── lib.linux-x86_64-3.8
+│   │   │   └── temp.linux-x86_64-3.8
+│   │   ├── dist
+│   │   └── interplate.egg-info
+│   └── __pycache__
+├── MCGpu
+│   ├── build
+│   │   ├── bdist.linux-x86_64
+│   │   ├── lib.linux-x86_64-3.8
+│   │   └── temp.linux-x86_64-3.8
+│   ├── dist
+│   └── MCGpu.egg-info
+├── model
+│   └── __pycache__
+├── people_snapshot_public_proprecess -> ../people_snapshot_public_proprecess/
+├── preprocess
+├── scripts
+│   ├── gap-female
+│   ├── large_pose
+│   ├── people_snapshot
+│   ├── preprocess
+│   └── sythe
+├── smpl_pytorch -> ../smpl_pytorch/
+├── tools
+└── utils
+    └── __pycache__
+
+```
+
+
+
+Run the following code to fitting garment meshes from monocular videos.
+
+```bash
+# Training from scratch: self-rotated videos.
+
+## Peoplesnapshot
+### softlink preprocess peoplesnapshot dataset in ./REC-MV
+ln -s ../people_snapshot_public_proprecess/ ./
+### e.g. training codes
+bash ./scripts/people_snapshot/train_female-3-casual.sh 0 ${save_name} ${wandb name}
+
+## Gap-Female
+bash ./scripts/gap-female/train_anran_garment_fl.sh 1 anran_exp anran_exp
+
+# Training for large motion video after self-rotated fitting 
+## e.g. training codes
+bash ./scripts/gap-female/train_anran_garment_fl.sh 1 anran_exp anran_exp
+## copy self-rotated folder to large pose, and also its weights
+bash ./scripts/gap-female/train_anran_garment_fl.sh 1 anran_exp anran_exp
+
+good luck!
+```
+
+
 
 
 ## Citation
