@@ -9,7 +9,7 @@ This is the official PyTorch implementation of [REC-MV](https://lingtengqiu.gith
 
 we will release the code soon.
 
-**As patent pending, if you are interesting in our works, please do not hesitate to contact me to obtain paper/source codes.**
+**As patent pending, if you are interesting in our works, please do not hesitate to contact me to obtain paper.**
 
 ## TODO:triangular_flag_on_post:
 
@@ -17,6 +17,7 @@ we will release the code soon.
 - [x] Pretrained weights
 - [x] Demo
 - [x] Training Code
+- [ ] Combine with NeuralUDF (Comming Soon!)
 
 ## Requirements
 
@@ -243,7 +244,7 @@ ln -s ../xxx gap-female-largepose
 bash ./scripts/large_pose/test_large_pose_A_fl.sh 2 anran_tic anran_tic_self_rotated
 # 2.large-motion garment capturing
 # ${gpu_id} ${subject_name} ${checkpoint name} 
-
+bash ./scripts/large_pose/test_large_pose_A_fl.sh 2 anran_tic anran_tic_self_rotated
 # generating video
 # define pngs to video function
 encodepngffmpeg()
@@ -254,10 +255,13 @@ encodepngffmpeg()
     ffmpeg -r ${1} -pattern_type glob -i '*.png' -vcodec libx264 -crf 18 -vf "pad=ceil(iw/2)*2:ceil(ih/2)*2" -pix_fmt yuv420p ${2}
 }
 
-# 3.command
+# 3. producing self-rotated video
+cd ./gap-female-largepose/anran_tic/anran_tic_self_rotated/colors
+encodepngffmpeg 30 ./demo.mp4
 
-
-
+# producing large-pose video
+cd ./gap-female-largepose/anran_tic/anran_tic_large_pose/colors
+encodepngffmpeg 30 ./demo.mp4
 
 
 ```
@@ -345,18 +349,20 @@ Run the following code to fitting garment meshes from monocular videos.
 ### softlink preprocess peoplesnapshot dataset in ./REC-MV
 ln -s ../people_snapshot_public_proprecess/ ./
 ### e.g. training codes
-bash ./scripts/people_snapshot/train_female-3-casual.sh 0 ${save_name} ${wandb name}
+bash ./scripts/people_snapshot/train_female-3-casual.sh 0 ${exp_name} ${wandb name}
 
 ## Gap-Female
 bash ./scripts/gap-female/train_anran_garment_fl.sh 1 anran_exp anran_exp
 
 # Training for large motion video after self-rotated fitting 
 ## e.g. training codes
-bash ./scripts/gap-female/train_anran_garment_fl.sh 1 anran_exp anran_exp
+bash ./scripts/gap-female/train_anran_garment_fl.sh 1 ${exp_self_rotated_name} ${wandb name}
 ## copy self-rotated folder to large pose, and also its weights
-bash ./scripts/gap-female/train_anran_garment_fl.sh 1 anran_exp anran_exp
+cp -rd ./gap-female-largepose/anran_tic/${exp_self_rotated_name}/  cp -rd ./gap-female-largepose/anran_tic/${exp_large_pose_name}/
+mv ./gap-female-largepose/anran_tic/${exp_large_pose_name}/latest.pth ./gap-female-largepose/anran_tic/${exp_large_pose_name}/a-pose.pth
+bash ./scripts/gap-female/train_anran_garment_fl.sh 1 ${exp_large_pose_name} ${wandb name}
 
-good luck!
+# Good luck in Garment-Verse.
 ```
 
 
