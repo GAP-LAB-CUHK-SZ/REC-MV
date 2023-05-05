@@ -211,7 +211,7 @@ bash ./scripts/female_large_pose_process_new/${video-name}.sh ${gpu_id} ${save_f
 
 ## Demo
 
-Download the pretrained weights for self-rotated ([Onedrive](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/ERljbd3r5VhMiA8aMXmVexsBgfoAEedwtHaBNVHZuDS-eA?e=QKatmf)/[Baidu Drive](https://pan.baidu.com/s/1zZU59VXmEBWiVkl55SYisA?pwd=8rhv))  and large motion([Onedrive](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/EZep5m5fYvNHqPRxWtwmwEYBd6qxZDstHp8y-b8ZQTwJrQ?e=dsbmyl)/[Baidu Drive](https://pan.baidu.com/s/1psux5iY6vhz6kVtvz6exmQ?pwd=wh0o)) into CUHKszCap-L/anran_tic (Note that you need download CUHKszCap-L first).
+Download the pretrained weights for self-rotated ([Onedrive](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/ERZz9kjjTuZLkMAXcsVxAE4BBGQ6CKUX6ue4Vatu-hYLhQ?e=3tKgvH)/[Baidu Drive](https://pan.baidu.com/s/1RpKCj-tnV9_88JAEUqQHQw?pwd=e15d))  and large motion([Onedrive](https://cuhko365-my.sharepoint.com/:u:/g/personal/220019047_link_cuhk_edu_cn/EaWwjlDBGfJHiZzg6vke7nwBY-MaqDszxExwZ3umeVlVBA?e=Mb7ARv)/[Baidu Drive](https://pan.baidu.com/s/1H6q_ftRy62wNAbcRoOsOtA?pwd=13ax)) into CUHKszCap-L/anran_tic (Note that you need download CUHKszCap-L first).
 
 
 
