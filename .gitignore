@@ -16,9 +16,6 @@ people_snapshot_public/
 proprecess/
 pytorch3d-0.4.0/
 train_debug/
-FastMinv/
-MCAcc/
-MCGpu/
 wandb/
 tmp/
 lib/
