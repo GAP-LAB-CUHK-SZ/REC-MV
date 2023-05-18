@@ -92,9 +92,9 @@ def bi_search(arr, left, right, target):
         if arr[mid]==target:
             return mid
         elif arr[mid]>target:
-            right-=1
+            right = mi-1
         else:
-            left+=1
+            left= mid+1
     return len(arr)
 
 
