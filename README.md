@@ -7,9 +7,7 @@
 
 This is the official PyTorch implementation of [REC-MV](https://lingtengqiu.github.io/2023/REC-MV/).
 
-we will release the code soon.
 
-**As patent pending, if you are interesting in our works, please do not hesitate to contact me to obtain paper.**
 
 ## TODO:triangular_flag_on_post:
 
