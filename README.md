@@ -363,17 +363,48 @@ bash ./scripts/gap-female/train_anran_garment_fl.sh 1 ${exp_large_pose_name} ${w
 # Good luck in Garment-Verse.
 ```
 
+## CVPR2023 Offline Questions
 
+Due to the delay in obtaining my Canadian visa, I was unable to attend the in-person CVPR2023 conference in Vancouver, Canada.
+
+Thanks to Zhongjin Luo for helping collect the offline questions.
+
+
+
+#### Q1:  How to obtain templates; How to split garment and human?
+
+1. For the garment templates, we follow [DeepFashion3D](https://github.com/GAP-LAB-CUHK-SZ/deepFashion3D) and use garment templates defined by them.
+2. we apply the NICP algorithm to register category-specific meshes from implicit clothed human surfaces in canonical space, guided by 3D explicit curves.
+
+
+
+#### Q2 : How to obtain 2D curve; How to optimize  3D curves?
+
+1.  First, the garment semantic labels are parsed from a sequence by simply applying an off-the-shelf [Estimator](https://github.com/GoGoDuck912/Self-Correction-Human-Parsing). Then we train the garment landmark predictor to obtain garment 2 key points. Finally,  the 2D visible curves can be parsed from the garment semantic contour (It is the shortest path starting from one key point to another one on the garment contour). More details can be found in the [supplementary](https://openaccess.thecvf.com/content/CVPR2023/supplemental/Qiu_REC-MV_REconstructing_3D_CVPR_2023_supplemental.pdf).
+2.  We define explicit 3D curves in canonical spaces. Following the dynamic human NeRF modeling methodology, we utilize non-rigid offset MLPs and skinning weight to warp the 3D curves to observation space.  Then we project 3D curves into pixel spaces and optimize them through 2D projection loss.
+
+#### Q3: Can we use it to build a dataset?  what is different from directly scanning and registering?
+
+1.  Yes, we can. However,  the quality of parsing mesh depends on the accuracy of the predicted garment normals. 
+2.  Direct scanning requires purchasing advanced equipment and hiring manpower to annotate feature lines which are time-consuming and money-consuming( - -) while our method can obtain high-quality garment mesh from a monocular video shoot by smartphone.
+
+#### Q4  What is the difference between REC-MV and ReEF?
+
+​	ReEF is an image-based method, while our method is video-based. ReEF struggles to model a video sequence, as it lacks consistency in the temporal domain.
+
+#### Q5 What field do you use to represent open-boundary clothing? SDF?
+
+​	We use **SDF** *with* **Explicit Curves** to represent open-boundary clothing.  As we know, SDF hardly handles open-boundary meshes, especially for garments. Inspired by ReEF, if we can obtain dynamic SDF as well as explicit curves, we are able to model open-boundary clothing in temporal spaces.
 
 
 ## Citation
 
-If you use REC-MV in your research, please consider the following BibTeX entry and giving us a star🌟!
+If you use REC-MV in your research, please consider the following BibTeX entry and give us a star🌟!
 
 ```BibTeX
 @inproceedings{qiu2023recmv
-  title={REC-MV: REconstructing 3D Dynamic Cloth from Monucular Videos},
-  author={Qiu, Lingteng and Chen, Guanying and Zhou, Jiapeng and Xu, Mutian and Wang, Junle, and Han, Xiaoguang},
+  title={REC-MV: REconstructing 3D Dynamic Cloth from Monocular Videos},
+  author={Qiu, Lingteng and Chen, Guanying and Zhou, Jiapeng, Xu Mutian and Wang, Junle, and Han, Xiaoguang},
   booktitle={CVPR},
   year={2023}
 }
