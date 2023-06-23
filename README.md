@@ -394,7 +394,7 @@ Thanks to Zhongjin Luo for helping collect the offline questions.
 
 #### Q5 What field do you use to represent open-boundary clothing? SDF?
 
-​	We use **SDF** *with* **Explicit Curves** to represent open-boundary clothing.  As we know, SDF hardly handles open-boundary meshes, especially for garments. Inspired by ReEF, if we can obtain dynamic SDF as well as explicit curves, we are able to model open-boundary clothing in temporal spaces.
+​	We use **SDF** *with* **Explicit Curves** to represent open-boundary clothing.  As we know, SDF hardly handles open-boundary meshes, especially for garments. Inspired by ReEF, if we can obtain dynamic SDF as well as explicit curves in temporal space, we are able to model dynamic open-boundary clothing.
 
 
 ## Citation
