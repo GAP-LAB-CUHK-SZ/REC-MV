@@ -367,7 +367,7 @@ bash ./scripts/gap-female/train_anran_garment_fl.sh 1 ${exp_large_pose_name} ${w
 
 Due to the delay in obtaining my Canadian visa, I was unable to attend the in-person CVPR2023 conference in Vancouver, Canada.
 
-Thanks to Zhongjin Luo for helping collect the offline questions.
+Thanks to [Zhongjin Luo](https://zhongjinluo.github.io/) for helping collect the offline questions.
 
 
 
