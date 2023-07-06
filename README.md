@@ -15,6 +15,7 @@ This is the official PyTorch implementation of [REC-MV](https://lingtengqiu.gith
 - [x] Pretrained weights
 - [x] Demo
 - [x] Training Code
+- [ ] Details about pre-processing your videos.
 - [ ] Combine with NeuralUDF (Comming Soon!)
 
 ## Requirements
