@@ -16,6 +16,7 @@ This is the official PyTorch implementation of [REC-MV](https://lingtengqiu.gith
 - [x] Demo
 - [x] Training Code
 - [x] Details about pre-processing your videos.
+- [x] Huggingface demo to preprocess your video!
 - [ ] Combine with NeuralUDF (Comming Soon!)
 
 ## Requirements
@@ -205,6 +206,9 @@ python ./tools/parsing_mask_to_fl.py --parsing_type ATR  --input_path ./female_l
 #3. training
 bash ./scripts/female_large_pose_process_new/${video-name}.sh ${gpu_id} ${save_folder} ${wandb_logger_name}
 ```
+
+## Huggingface preprocess
+We build [huggingface model](https://huggingface.co/mambazjp/REC-MV_preprocess/tree/main) to help ones to obtain videos' training data.
 
 </details>
 
